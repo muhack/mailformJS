@@ -1,10 +1,10 @@
-
-
 angular.module('app', [])
 .controller('Controller', ['$scope', function($scope) {
     $scope.lunghezza = 0;
     var bestemmia = true;
     $scope.sentence = 'Hello there how are you today?';
+    $scope.destination = '';
+    $scope.subject = 'soggetto';
     $scope.parseSentence = function () {
         $scope.lunghezza = $scope.sentence.length;
     }
@@ -17,6 +17,23 @@ angular.module('app', [])
       }
       check();
     });
+    
+    $scope.send = function() {
+        $http({
+            method : 'POST',
+            url : 'process.php',
+            message : param($scope.sentence), 
+            destination: param($scope.destination),
+            subject: param($scope.subject),
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function(data) {
+            if (!data.success) {
+                alert('messaggio inviato');
+            } else {
+                alert('bad crash');
+            }
+        });
+   };
     
     var check = function()
     {
