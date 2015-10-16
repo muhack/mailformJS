@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,SACA;EACI,gBAAgB,EAAE,WAAW;;AAGjC,OACA;EACI,gBAAgB,EAAE,MAAM;;AAG5B,KACA;EACI,gBAAgB,EAAE,KAAK;;AAG3B,MACA;EACI,gBAAgB,EAAE,GAAG",
+"sources": ["stili.scss"],
+"names": [],
+"file": "stili.css"
+}
