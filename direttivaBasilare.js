@@ -1,5 +1,5 @@
 angular.module('app', [])
-.controller('Controller', ['$scope', function($scope) {
+.controller('Controller', ['$scope', '$http' ,function($scope, $http) {
     $scope.lunghezza = 0;
     var bestemmia = true;
     $scope.sentence = 'Hello there how are you today?';
@@ -19,20 +19,37 @@ angular.module('app', [])
     });
     
     $scope.send = function() {
-        $http({
-            method : 'POST',
-            url : 'process.php',
-            message : param($scope.sentence), 
-            destination: param($scope.destination),
-            subject: param($scope.subject),
-            headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
-        }).success(function(data) {
-            if (!data.success) {
-                alert('messaggio inviato');
-            } else {
-                alert('bad crash');
-            }
-        });
+       escape = "ahoioi";
+       var parola = $scope.sentence + escape + $scope.subject + escape + $scope.destination;
+       $http({
+       url: 'http://localhost:3000/',
+       method: "POST",
+       data: "ciao" + parola,
+       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+       }).success(function (data, status, headers, config) {
+            alert(data);
+            $scope.risposte = data;
+            start();
+       }).error(function (data, status, headers, config) {
+           $scope.status = status;
+       });
+
+       /*$http({
+            url: 'http://localhost:3000/',
+            method: "POST",
+            nome : $scope.mittenteNome, 
+            cognome : $scope.mittenteCognome, 
+            message : $scope.sentence, 
+            destination: $scope.destination,
+            subject: $scope.subject,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+       }).success(function (data, status, headers, config) {
+            alert(data);
+            $scope.risposte = data;
+            start();
+       }).error(function (data, status, headers, config) {
+           $scope.status = status;
+       });    */    
    };
     
     var check = function()
